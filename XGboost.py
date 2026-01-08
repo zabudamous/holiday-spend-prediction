@@ -1,0 +1,2 @@
+python --version
+python -c "import sys; print(sys.executable)"
