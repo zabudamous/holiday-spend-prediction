@@ -1,6 +1,6 @@
 # Holiday Spend Prediction
 
-This project explores and models holiday spending behavior using simulated retail data.  
+This project uses carefully simulated data to explore and model holiday spending behavior.  
 It combines Python-based machine learning with R (Quarto) analysis and presentation to demonstrate an end-to-end data science workflow: data generation, preprocessing, modeling, interpretation, and communication.
 
 ## Project Overview
