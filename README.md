@@ -18,33 +18,17 @@ Simulating data with realistic statistical distributions provided me with contro
   # Dataset 
   * rows = 5,000 synthetic members, generated with realistic behavioral distributions.
   * 14 features across five behavioral catgories.
-category     Features
-
-Spending     rolling_12mo_spend, 
-history      rolling_24mo_spend,
-             rolling_12mo_avg_basket
-
-Visit        rolling_12mo_visit
-behavior     weekend_shopping_ratio    
-
-Department   pct_spend_grocery_consumables,
-spend        pct_spend_pharmacy_health,
-             pct_spend_home_hardware,
-             pct_spend_auto_sporting,
-             pct_spend_general_merch,
-
-Membership   executive_flag,
-             member_tenure_years
-
-Other        return_rate,
-behavior     promo_usage_rate
-
-Target       holiday_spend(USD)
-Variable
+    
+|category         | Features                                                       |
+|  -------------- | -------------------------------------------------------------- | 
+|Spending history | rolling_12mo_spend, rolling_24mo_spend, rolling_12mo_avg_basket| 
+|Visit behavior   | rolling_12mo_visit, weekend_shopping_ratio                     |
+|Department spend |  pct_spend_grocery_consumables, pct_spend_pharmacy_health, pct_spend_home_hardware, pct_spend_auto_sporting, pct_spend_general_merch,         |
+|Membership       | executive_flag, member_tenure_years                            |
+|Other behavior   | return_rate, promo_usage_rate                                  |
+|Target Variable  | holiday_spend(USD)                                             |
 
   * Mean: $1,501.20 | Stnd.dev: $566.50 | Range: $171-$5,476
-
-----------------------------------------------------------------------------------------------------
 
 # Methodology
 1. Exploratory Data Analysis
@@ -70,13 +54,11 @@ Variable
 ----------------------------------------------------------------------------------------------------
 # Results
 
-Model               R²          MAE          RMSE
------------------------------------------------------
-Linear Regression   0.6614      $264.66      $333.65 
------------------------------------------------------
-ElasticNet          0.6625      $264.42      $333.11
------------------------------------------------------
-XGBoost             0.6864      $256.20      $321.07
+|Model              | R²         | MAE        | RMSE    |
+| ----------------- | ---------- | -----------|-------- |
+|Linear Regression  | 0.6614     | $264.66    | $333.65 |
+|ElasticNet         | 0.6625     |$264.42     | $333.11 |
+|XGBoost            | 0.6864     | $256.20    | $321.07 |
 
 * XGBoost outperformed both linear models across all metrics, explaining ~68.6% of variance in holiday spend with a mean absolute error of $256.20 - roughly 17% of the average holiday spend ($1,501).
 * The narrow gap between Linear Regression and ElasticNet suggests that multicollinearity was the primary data challenge, not excess features - consistent with what the correlation matrix showed.
@@ -109,14 +91,16 @@ XGBoost             0.6864      $256.20      $321.07
 ----------------------------------------------------------------------------------------------------
 
 # Repository Contents
-File                        Description
-costco_basket.ipynb         Main Python notebook: EDA, preprocessing, modeling, evaluation
-XGboost.py                  Standalone modeling script
-Costco_Holiday_Spend.qmd    Quarto technical analysis document
-Costco_Slides.qmd           Quarto slide source
-Costco_Slides.html          Rendered presentation slides
-Costco_simulated_data.csv   Synthetic dataset (5,000 members, 14 features)
-Costco_SHAP.png             SHAP feature importance visualization
+
+|File                      | Description                                    |
+| ------------------------ | ---------------------------------------------- | 
+|costco_basket.ipynb       | Main Python notebook: EDA, preprocessing, modeling, evaluation                                                                                     |
+|XGboost.py                | Standalone modeling script                     |
+|Costco_Holiday_Spend.qmd  | Quarto technical analysis document             |
+|Costco_Slides.qmd         | Quarto slide source                            |
+|Costco_Slides.html        | Rendered presentation slides                   |
+|Costco_simulated_data.csv | Synthetic dataset (5,000 members, 14 features) |
+|Costco_SHAP.png           | SHAP feature importance visualization          |
 
 ----------------------------------------------------------------------------------------------------
 
