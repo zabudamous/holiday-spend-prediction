@@ -8,39 +8,42 @@ Using a synthetic dataset of 5,000 members, I built an end-to-end machine learni
 
 ## Why Simulated Data?
 Simulating data with realistic statistical distributions provided me with control over the underlying statistical structure, allowing for validation of a model behavior and SHAP interpretability against known relationships, while approximating realistic retail patterns without privacy limitations.
-    - Because the true relationships are known, simulated data allows validation that both the model          and SHAP explanations recover the intended structure, not spurious patterns. 
+    - Because the true relationships are known, simulated data allows validation that both the model and SHAP explanations recover the intended structure, not spurious patterns. 
+    
 ----------------------------------------------------------------------------------------------------
   # Business Question
   Q: Which members are likely to be high holiday spenders, and what behavioral signals drive that           prediction?
+  
 ----------------------------------------------------------------------------------------------------
   # Dataset 
   * rows = 5,000 synthetic members, generated with realistic behavioral distributions.
   * 14 features across five behavioral catgories.
 category     Features
--------------------------------------------------
+
 Spending     rolling_12mo_spend, 
 history      rolling_24mo_spend,
              rolling_12mo_avg_basket
--------------------------------------------------
+
 Visit        rolling_12mo_visit
 behavior     weekend_shopping_ratio    
--------------------------------------------------
+
 Department   pct_spend_grocery_consumables,
 spend        pct_spend_pharmacy_health,
              pct_spend_home_hardware,
              pct_spend_auto_sporting,
              pct_spend_general_merch,
--------------------------------------------------
+
 Membership   executive_flag,
              member_tenure_years
--------------------------------------------------
+
 Other        return_rate,
 behavior     promo_usage_rate
--------------------------------------------------
+
 Target       holiday_spend(USD)
 Variable
 
   * Mean: $1,501.20 | Stnd.dev: $566.50 | Range: $171-$5,476
+
 ----------------------------------------------------------------------------------------------------
 
 # Methodology
@@ -63,6 +66,7 @@ Variable
    * Linear Regression - interpretable baseline, trained on log-transformed target.
    * ElasticNet - combines L1 + L2 regularization (alpha=0.001, l1_ratio=0.5) to handle correlated        features.
    * XGBoost - gradient boosted trees with early stopping (best iteration: round 156), L1/L2              regularization, and tuned hyperparameters (max_depth=3,eta=0.03,subsample=0.8).
+     
 ----------------------------------------------------------------------------------------------------
 # Results
 
@@ -76,6 +80,7 @@ XGBoost             0.6864      $256.20      $321.07
 
 * XGBoost outperformed both linear models across all metrics, explaining ~68.6% of variance in holiday spend with a mean absolute error of $256.20 - roughly 17% of the average holiday spend ($1,501).
 * The narrow gap between Linear Regression and ElasticNet suggests that multicollinearity was the primary data challenge, not excess features - consistent with what the correlation matrix showed.
+  
 ----------------------------------------------------------------------------------------------------
 # Feature Importance & SHAP Analysis
   * SHAP (SHapley Additive exPlanations) was used to interpret the XGBoost model's predictions at both the global and individual level.
@@ -88,16 +93,19 @@ XGBoost             0.6864      $256.20      $321.07
 5. rolling_12mo_visit - visit frequency is a secondary but meaningful signal.
 
    * **key business insight**: A member's spending momentum, as in how much they already spent, is       the strongest signal for holiday behavior- not demographic or department preference. This           suggests holiday campaigns should prioritize high-spend, high-frequency members regardless of       what category they shop.
+     
 ----------------------------------------------------------------------------------------------------
 
 # Residual Analysis
 * Residual plots were generated for all three models. XGBoost showed tighter residual spread and no systematic bias patterns, confirming its superior fit. All models showed similar residual structure, suggesting the remaining ~31% of unexplained variance reflects genuine rendomness or unmeasured factors (e.g., income shocks, external economic conditions) rather than model limitations.
+  
 ----------------------------------------------------------------------------------------------------
 
 # Tools & Technologies
 * Python: pandas, numpy, scikit-learn, XGBoost, SHAP, matplotlib, seaborn
 * R & Quarto: Technical analysis write-up and presentation slides (revealjs)
 * Environment: Google Colab / Jupyter Notebook
+  
 ----------------------------------------------------------------------------------------------------
 
 # Repository Contents
@@ -109,10 +117,12 @@ Costco_Slides.qmd           Quarto slide source
 Costco_Slides.html          Rendered presentation slides
 Costco_simulated_data.csv   Synthetic dataset (5,000 members, 14 features)
 Costco_SHAP.png             SHAP feature importance visualization
+
 ----------------------------------------------------------------------------------------------------
 
 # View the Presentation
 Interactive slides available here: 👉 Costco Holiday Spend — Quarto Slides (https://rpubs.com/zabudamous/1385469)
+
 ----------------------------------------------------------------------------------------------------
 
 # Key Skills Demonstrated
@@ -123,6 +133,7 @@ Interactive slides available here: 👉 Costco Holiday Spend — Quarto Slides (
 * Model interpretability using SHAP (global + individual level).
 * Cross-model benchmarking with consistent evaluation methodology.
 * Bridging Python ML with R-based reporting and presentation.
+  
 ----------------------------------------------------------------------------------------------------
 
 # What I'd Improve with More Time
@@ -131,6 +142,7 @@ Interactive slides available here: 👉 Costco Holiday Spend — Quarto Slides (
 * Richer simulation: Add seasonal noise and member-level heterogeneity to the data-generating process.
 * Segmentation layer: Cluster members by behavioral profile before modeling (member-group-specific models).
 * Deployment sketch: Wrap the model in a simple Flask/FastAPI endpoint to simulate a production scoring pipeline.
+  
 ----------------------------------------------------------------------------------------------------
 **This project is part of my data science portfolio and reflects my interest in applied machine learning, statistical rigor, and data-driven business storytelling.**
 
