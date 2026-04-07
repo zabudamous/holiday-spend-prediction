@@ -66,8 +66,10 @@ Simulating data with realistic statistical distributions provided me with contro
 ----------------------------------------------------------------------------------------------------
 # Feature Importance & SHAP Analysis
   * SHAP (SHapley Additive exPlanations) was used to interpret the XGBoost model's predictions at both the global and individual level.
-    
-## Top Predictors (Mean Absolute SHAP Value):
+<img width="789" height="700" alt="Costco_SHAP" src="https://github.com/user-attachments/assets/579bccdc-b676-4dc8-977e-8cfe29eca36a" />
+
+## Top Predictors
+s (Mean Absolute SHAP Value):
 1. rolling_12mo_spend - dominant predictors by a wide margin (gain=9.07); high annual spenders consistently predict high holiday spend.
 2. rolling_12mo_avg_basket - average transaction size adds independent signal beyond total spend.
 3. executive_flag - executive members spend significantly more, consistent with their higher engagement profile.
